@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+var cfenv = require('cfenv');
+var appEnv = cfenv.getAppEnv();
+
 var app = require('../app');
 var debug = require('debug')('connectedfridgebackend:server');
 var http = require('http');
@@ -25,7 +28,11 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+//server.listen(port);
+
+server.listen(appEnv.port, '0.0.0.0', function() {
+    console.log("smartcooler backend starting on...." + appEnv.url);
+});
 server.on('error', onError);
 server.on('listening', onListening);
 
